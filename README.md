@@ -30,7 +30,7 @@ You will need:
 
 Install the [ALVR Client on your Oculus Go](https://alvr-dist.appspot.com/), then on your PC install [SteamVR](https://store.steampowered.com/app/250820/SteamVR/), [ALVR](https://github.com/polygraphene/ALVR/releases) (I recommend [v.2.3.1](https://github.com/polygraphene/ALVR/releases/tag/v2.3.1)) and [FreePIE](https://andersmalmgren.github.io/FreePIE/), following their own instructions. Be sure to follow the [ALVR FreePIE Integration](https://github.com/polygraphene/ALVR/wiki/FreePIE-Integration) instructions.
 
-Replace `ALVR\driver\bin\win64\driver_alvr_server.dll` with the [driver_alvr_server.dll](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/blob/master/driver_alvr_server.dll) provided here - without it, you won't be able to pull or throw objects. Be sure that SteamVR isn't running when you replace the file.
+Replace `ALVR\driver\bin\win64\driver_alvr_server.dll` with the [driver_alvr_server.dll](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/blob/master/driver_alvr_server.dll) provided here - without it, you won't be able to pull or throw objects. Be sure that SteamVR isn't running when you replace the file. Rename the original file to avoid overwriting it, just in case.
 
 At this point I recommend that you just try to start SteamVR and use ALVR. Please see the [ALVR documentation](https://github.com/polygraphene/ALVR/wiki) for details and [troubleshooting tips](https://github.com/polygraphene/ALVR/wiki/Troubleshooting). The only issue I had was some dropped frames that I fixed by either changing the Wi-Fi router settings or simply using another Wi-Fi router.
 
