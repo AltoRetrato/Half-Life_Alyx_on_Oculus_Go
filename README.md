@@ -10,7 +10,9 @@ So far I've managed to play almost the entire 1st chapter of the game on my Ocul
 
 ## Issues
 
-The worst issue at the moment is that **I can't get the game to detect the "flick of the wrist"**, a movement required to pick up objects with the gravity gloves. Because of that **I'm currently stuck** at the end of the 1st chapter, but if someone could tell me how the game detects that action (or if there is a bind or accessibility option for it) I might solve this problem (and perhaps tackle the next one).
+The worst issue so far was that, using the latest stable release of ALVR, the game can't detect the "flick of the wrist" (or "flick of hand") gesture, required to use the gravity gloves. I've provided a new [driver_alvr_server.dll](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/blob/master/driver_alvr_server.dll) that solves this (thanks to information provided by @dnnkeeper).
+
+For now, use [F1] to simulate the "grip" button in the Vive controller to reload your weapon.
 
 As soon as I figure out how to complete the game with the Oculus Go I'll rewrite these instructions.
 
@@ -27,6 +29,8 @@ You will need:
 * Optionally, download and edit the ALVR_init.cmd batch file as well to make launching and closing  ALVR easier and faster
 
 Install the [ALVR Client on your Oculus Go](https://alvr-dist.appspot.com/), then on your PC install [SteamVR](https://store.steampowered.com/app/250820/SteamVR/), [ALVR](https://github.com/polygraphene/ALVR/releases) (I recommend [v.2.3.1](https://github.com/polygraphene/ALVR/releases/tag/v2.3.1)) and [FreePIE](https://andersmalmgren.github.io/FreePIE/), following their own instructions. Be sure to follow the [ALVR FreePIE Integration](https://github.com/polygraphene/ALVR/wiki/FreePIE-Integration) instructions.
+
+Replace `ALVR\driver\bin\win64\driver_alvr_server.dll` with the [driver_alvr_server.dll](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/blob/master/driver_alvr_server.dll) provided here - without it, you won't be able to pull or throw objects. Be sure that SteamVR isn't running when you replace the file.
 
 At this point I recommend that you just try to start SteamVR and use ALVR. Please see the [ALVR documentation](https://github.com/polygraphene/ALVR/wiki) for details and [troubleshooting tips](https://github.com/polygraphene/ALVR/wiki/Troubleshooting). The only issue I had was some dropped frames that I fixed by either changing the Wi-Fi router settings or simply using another Wi-Fi router.
 
