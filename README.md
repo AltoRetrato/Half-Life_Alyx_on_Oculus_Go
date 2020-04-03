@@ -6,13 +6,11 @@
 
 You can play [Half-Life: Alyx](https://www.half-life.com/en/alyx) with any [Steam-VR compatible system](https://www.half-life.com/en/alyx/vr). While the Oculus Go is not officially supported (has only 3DoF and doesn't have enough buttons), it can be used to play many SteamVR games with the right combinations of hardware, software and configuration.
 
-So far I've managed to play almost the entire 1st chapter of the game on my Oculus Go connected to my PC via Wi-Fi. Of course, the experience is not as fun or intuitive as with a 6DoF headset, but the game is playable and I'm enjoying it. I'd rather buy an Oculus Quest to play the game with, but since I can't buy it now for a reasonable price where I live, the Oculus Go will do.
+So far I've managed to play almost the first two chapters of the game on my Oculus Go connected to my PC via Wi-Fi. Of course, the experience is not as fun or intuitive as with a 6DoF headset, but the game is playable and I'm enjoying it. I'd rather buy an Oculus Quest to play the game with, but since I can't buy it now for a reasonable price where I live, the Oculus Go will do.
 
 ## Issues
 
 The worst issue so far was that, using the latest stable release of ALVR, the game can't detect the "flick of the wrist" (or "flick of hand") gesture, required to use the gravity gloves. I've provided a new [driver_alvr_server.dll](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/blob/master/driver_alvr_server.dll) that solves this (thanks to information provided by @dnnkeeper).
-
-For now, use [F1] to simulate the "grip" button in the Vive controller to reload your weapon.
 
 As soon as I figure out how to complete the game with the Oculus Go I'll rewrite these instructions.
 
@@ -51,7 +49,7 @@ To automate most of the above, download and edit [ALVR_init.cmd](https://github.
 * Start ALVR on your Oculus Go
 * When you're done, close the ALVR window on your PC to shutdown ALVR, FreePIE and SteamVR, and revert your sound device to your preferred one
 
-Start the game and, on the 1st run, select "Options > Accessibility > Single Controller: ON", then select the single controller bindings.
+Start the game and, on the 1st run, select "Options > Accessibility > Single Controller: ON", then select the single controller bindings. I also recommend that you create a binding to eject your gun magazine by holding the back button on the Oculus Go controller. Go to `Current binding > Edit > Weapon > (add new binding) Use as button > Hold = Eject Magazine`. You can alternatively use [F1] to simulate the "grip" button in the Vive controller to eject the magazine.
 
 I wrote Ric's_Half-Life_Alyx_FreePIE_ALVR_script.py to allow the required controller bindings and to simulate 6DoF of the controller. Here's how it works:
 * There are two modes, "0: default" and "1: fly". You can toggle between then by pressing [SPACE]
