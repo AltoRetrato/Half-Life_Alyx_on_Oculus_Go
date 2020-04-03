@@ -6,8 +6,8 @@
   		m_pose.vecPosition[1] = controllerPosition.y;
   		m_pose.vecPosition[2] = controllerPosition.z;
   
-+         // Since controller_LinearVelocity is always [0, 0, 0], fake it 
-+         // from controller_LinearAcceleration (and hope for the best!) :)
++ 		// Since controller_LinearVelocity is always [0, 0, 0], fake it 
++ 		// from controller_LinearAcceleration (and hope for the best!) :)
 + 		m_pose.vecVelocity[0]            = info.controller_LinearAcceleration.x / 10.0; //info.controller_LinearVelocity.x;
 + 		m_pose.vecVelocity[1]            = info.controller_LinearAcceleration.y / 10.0; //info.controller_LinearVelocity.y;
 + 		m_pose.vecVelocity[2]            = info.controller_LinearAcceleration.z / 10.0; //info.controller_LinearVelocity.z;
