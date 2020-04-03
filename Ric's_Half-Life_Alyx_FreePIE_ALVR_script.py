@@ -1,4 +1,6 @@
 # Ric's_Half-Life_Alyx_FreePIE_ALVR_script.py
+# 2020.04.02 - 2nd release, flick of the wrist solved with new driver; 
+#              reduced flight speed for better aiming, use single controller by default.
 # 2020.03.27 - [WIP] 1st release, still can't trigger a flick of the wrist
 
 # Based on sample3.py from https://github.com/polygraphene/ALVR/wiki/FreePIE-Integration
@@ -42,6 +44,10 @@ import math, time
 
 global prev_back, mode, offset, message_time
 
+# Global variables / Configuration
+
+alvr.two_controllers  = not True
+flight_speed          = 0.001
 speed_multiplier      = 10
 mode_toggle_key       = Key.Space # Key.Tab
 speed_toggle_key      = Key.LeftAlt
@@ -49,6 +55,8 @@ controller_toggle_key = Key.LeftControl
 key_map = [["system", Key.G], ["application_menu", Key.X], ["trigger", Key.T], ["a", Key.V], ["b", Key.B], ["x", Key.N], ["y", Key.M]
 , ["grip", Key.F1], ["trackpad_click", Key.F2], ["back", Key.F3], ["guide", Key.F4], ["start", Key.F5]
 , ["dpad_left", Key.F6], ["dpad_up", Key.F7], ["dpad_right", Key.F8], ["dpad_down", Key.F9], ["trackpad_touch", Key.F10]]
+
+# Mostly code below - don't touch it if you don't know what you are doing.
 
 def sign(x): return 1 if x >= 0 else -1
 
@@ -112,14 +120,13 @@ if starting:
   modeName = ["0: default", "1: fly", "2: trackpad gesture"]
   offset = [0.0, 0.0, 0.0]
   message_time = 0.0
-  alvr.two_controllers = True
   controller = 0
   controller_pos = [0.0, 0.0, 0.0]
   for i in range(3):
     alvr.controller_position[controller][i] = alvr.input_controller_position[i]
 
 # change target controller
-if controller_toggle_key and keyboard.getPressed(controller_toggle_key):
+if alvr.two_controllers and controller_toggle_key and keyboard.getPressed(controller_toggle_key):
   controller = 1 - controller
   alvr.message = "%s controller" % ("Left" if controller == 1 else "Right") 
   message_time = time.time()
@@ -168,7 +175,7 @@ elif mode == 1:
     #  offset = [0.0, 0.0, 0.0]
     #else:
       outvec = rotatevec(alvr.input_controller_orientation, [0, 0, -1, 0])
-      speed = 0.002 * sign(alvr.input_trackpad[1])
+      speed = flight_speed * sign(alvr.input_trackpad[1])
       if keyboard.getKeyDown(speed_toggle_key):
         speed = speed * speed_multiplier
       for i in range(3):
