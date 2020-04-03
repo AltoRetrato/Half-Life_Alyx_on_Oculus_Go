@@ -6,7 +6,7 @@
 
 You can play [Half-Life: Alyx](https://www.half-life.com/en/alyx) with any [Steam-VR compatible system](https://www.half-life.com/en/alyx/vr). While the Oculus Go is not officially supported (has only 3DoF and doesn't have enough buttons), it can be used to play many SteamVR games with the right combinations of hardware, software and configuration.
 
-So far I've managed to play almost the first two chapters of the game on my Oculus Go connected to my PC via Wi-Fi. Of course, the experience is not as fun or intuitive as with a 6DoF headset, but the game is playable and I'm enjoying it. I'd rather buy an Oculus Quest to play the game with, but since I can't buy it now for a reasonable price where I live, the Oculus Go will do.
+So far I've managed to play the first two chapters of the game on my Oculus Go connected to my PC via Wi-Fi. Of course, the experience is not as fun or intuitive as with a 6DoF headset, but the game is playable and I'm enjoying it. I'd rather buy an Oculus Quest to play the game with, but since I can't buy it now for a reasonable price where I live, the Oculus Go will do.
 
 ## Issues
 
@@ -28,7 +28,7 @@ You will need:
 
 Install the [ALVR Client on your Oculus Go](https://alvr-dist.appspot.com/), then on your PC install [SteamVR](https://store.steampowered.com/app/250820/SteamVR/), [ALVR](https://github.com/polygraphene/ALVR/releases) (I recommend [v.2.3.1](https://github.com/polygraphene/ALVR/releases/tag/v2.3.1)) and [FreePIE](https://andersmalmgren.github.io/FreePIE/), following their own instructions. Be sure to follow the [ALVR FreePIE Integration](https://github.com/polygraphene/ALVR/wiki/FreePIE-Integration) instructions.
 
-Replace `ALVR\driver\bin\win64\driver_alvr_server.dll` with the [driver_alvr_server.dll](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/blob/master/driver_alvr_server.dll) provided here - without it, you won't be able to pull or throw objects. Be sure that SteamVR isn't running when you replace the file. Rename the original file to avoid overwriting it, just in case.
+Replace `ALVR\driver\bin\win64\driver_alvr_server.dll` with the [driver_alvr_server.dll](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/blob/master/driver_alvr_server.dll) provided here - without it, you won't be able to pull or throw objects. Be sure that SteamVR isn't running when you replace the file. Rename the original file to avoid overwriting it, just in case. If you'd rather build ALVR yourself, see [RemoteController.patch](RemoteController.patch).
 
 At this point I recommend that you just try to start SteamVR and use ALVR. Please see the [ALVR documentation](https://github.com/polygraphene/ALVR/wiki) for details and [troubleshooting tips](https://github.com/polygraphene/ALVR/wiki/Troubleshooting). The only issue I had was some dropped frames that I fixed by either changing the Wi-Fi router settings or simply using another Wi-Fi router.
 
