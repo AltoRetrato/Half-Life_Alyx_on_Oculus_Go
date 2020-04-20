@@ -1,4 +1,15 @@
 # Ric's_Half-Life_Alyx_FreePIE_ALVR_script.py
+# ===========================================
+#
+# You can use an Oculus Go VR headseat to play Half-Life: Alyx on your PC.
+# You will need to install some free software, including ALVR and FreePIE.
+# This FreePIE script allows / help you play the game by binding specific
+# game actions to the Oculus Go controller and your PC keyboard.
+# Optionally, you can use a Gear VR controller instead of the keyboard.
+# More details at https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go
+#
+# 2020.04.18 - Added support for the Gear VR (and maybe Daydream?) controller with FreePIEVRController;
+#              Download DLL plugin at https://github.com/polygraphene/FreePIEVRController/releases
 # 2020.04.02 - 2nd release, flick of the wrist solved with new driver; 
 #              reduced flight speed for better aiming, use single controller by default.
 # 2020.03.27 - [WIP] 1st release, still can't trigger a flick of the wrist
@@ -8,25 +19,38 @@
 # https://github.com/polygraphene/ALVR/wiki/FreePIE-Reference
 # https://github.com/AndersMalmgren/FreePIE/wiki/Reference
 
-# [Go Back button]: "grip"
-# [Left-Ctrl]..: swap controller [left / right]
-# [Space]......: change mode
+# This script provides the following mappings & functions:
+#     [Go trigger button]............: "trigger" (shoot, catch, hold, ...)
+#     [Go trackpad click]............: "trackpad_click" (select weapon, teleport, game menu, ...)
+#     [Go back button], [X]..........: "application_menu" (reload, arm grenade, ...)
+#     [Space], [Gear VR trigger].....: toggle mode between "default" and "fly", and reset head & hand positions
+#	  [Gear VR back].................: reset head & hand positions
+#     [Alt], [Gear VR touchpad click]: faster flying speed
+#     [Left-Ctrl]....................: swap controller [left / right] (currently disabled)
+
 # Mode 0: default / passtrough
+#     In default mode, use the Go trackpad as instructed by the game.
+#
 # Mode 1: fly
-#     Click trackpad-up to fly forward, 
-#           trackpad-down to fly backwards,
-#           hold left [Alt] key to fly 10x faster.
-# Mode 2: trackpad guesture mode [disabled for Half-Life: Alyx]
+#     In fly mode, point the Go controller to the direction you want to fly.
+#     Click and hold the upper part of the Go trackpad to fly forward.
+#     Click and hold the lower part of the Go trackpad to fly backwards.
+#     Hold [Space] or the [Gear VR trigger] to fly both your head and hand,
+#     or else only your hand will move.
+#     Changing mode again will reset your head and hand positions.
+#
+# Mode 2: trackpad guesture mode (currently disabled)
 #     trackpad-left click : "application_menu" 
 #     trackpad-right click: "system" 
 #     trackpad-down click : "grip" 
+
 # Vive controller image: https://forums.unrealengine.com/filedata/fetch?id=1111783&d=1460020388
-# Vive controller button mappings to keyboard, Oculus Go controller:
-#     "application_menu": [X],  (mode 2) trackpad-left click
-#     "system"..........: [G],  (mode 2) trackpad-right click
-#     "grip"............: [F1], (mode 2) trackpad-down click OR back button (in any mode)
-#     "trigger".........: [T],  trigger
-#     "trackpad_click"..: [F2], trackpad click 
+# Vive controller button mappings to keyboard, Oculus Go controller and Gear VR controller:
+#     "application_menu": [X],  (mode 2) [Go trackpad-left click] OR [Go back button] (in any mode)
+#     "system"..........: [G],  (mode 2) [Go trackpad-right click]
+#     "grip"............: [F1], (mode 2) [Go trackpad-down click]
+#     "trigger".........: [T],  [Go trigger]
+#     "trackpad_click"..: [F2], [Go trackpad click]
 #     "back"............: [F3]
 #     "guide"...........: [F4]
 #     "start"...........: [F5]
@@ -46,6 +70,7 @@ global prev_back, mode, offset, message_time
 
 # Global variables / Configuration
 
+BACK_BUTTON_BINDING   = "application_menu" # "grip"
 alvr.two_controllers  = not True
 flight_speed          = 0.001
 speed_multiplier      = 10
@@ -56,7 +81,7 @@ key_map = [["system", Key.G], ["application_menu", Key.X], ["trigger", Key.T], [
 , ["grip", Key.F1], ["trackpad_click", Key.F2], ["back", Key.F3], ["guide", Key.F4], ["start", Key.F5]
 , ["dpad_left", Key.F6], ["dpad_up", Key.F7], ["dpad_right", Key.F8], ["dpad_down", Key.F9], ["trackpad_touch", Key.F10]]
 
-# Mostly code below - don't touch it if you don't know what you are doing.
+# Don't change the code below if you don't know what you are doing.
 
 def sign(x): return 1 if x >= 0 else -1
 
@@ -118,12 +143,28 @@ if starting:
   prev_back = False
   mode = 0
   modeName = ["0: default", "1: fly", "2: trackpad gesture"]
-  offset = [0.0, 0.0, 0.0]
+  offset  = [0.0, 0.0, 0.0]
+  offset2 = [0.0, 0.0, 0.0]
   message_time = 0.0
   controller = 0
   controller_pos = [0.0, 0.0, 0.0]
   for i in range(3):
     alvr.controller_position[controller][i] = alvr.input_controller_position[i]
+  gearvr = "vrcontroller" in globals()
+  if not gearvr:
+    diagnostics.debug("Gear VR controller plugin not found!")
+    diagnostics.debug("Be sure to move the FreePIEVRController.dll file into the FreePIE plugins folder")
+    diagnostics.debug('then right-click the file, select Properties and check "Unblock".')
+  else:
+    diagnostics.debug("Gear VR controller plugin found.")
+    if not hasattr(vrcontroller[0], 'BUTTONS'):
+      diagnostics.debug("Gear VR controller not found. Is Bluetooth on your computer turned on?")
+      gearvr = False
+  if gearvr:
+    gearvr_last_trigger = False
+
+if gearvr:
+  gearvr_trigger = vrcontroller[0].trigger
 
 # change target controller
 if alvr.two_controllers and controller_toggle_key and keyboard.getPressed(controller_toggle_key):
@@ -134,15 +175,22 @@ if alvr.two_controllers and controller_toggle_key and keyboard.getPressed(contro
 for k in key_map:
   alvr.buttons[controller][alvr.Id(k[0])] = keyboard.getKeyDown(k[1])
 
-if keyboard.getPressed(mode_toggle_key):
+if keyboard.getPressed(mode_toggle_key) or (gearvr and gearvr_trigger and not gearvr_last_trigger):
   mode = (mode + 1) % 2
   # show messageo on display
   alvr.message = modeName[mode]
   message_time = time.time()
+  offset  = [0.0, 0.0, 0.0]
+  offset2 = [0.0, 0.0, 0.0]
 
 if time.time() - message_time > 2:
   # remove message after 2 seconds
   alvr.message = ""
+
+# reset offsets with Gear VR back button
+if gearvr and vrcontroller[0].app: 
+  offset  = [0.0, 0.0, 0.0]
+  offset2 = [0.0, 0.0, 0.0]
 
 trigger_on = alvr.buttons[controller][alvr.Id("trigger")] or alvr.input_buttons[alvr.InputId("trigger")]
 
@@ -169,22 +217,21 @@ if mode == 2:
         alvr.buttons[controller][alvr.Id("application_menu")] = True
 elif mode == 1:
   # fly mode
-  # press upper half of trackpad to forward. bottom half to back
+  # press upper half of trackpad to move forward. bottom half to move back
   if alvr.input_buttons[alvr.InputId("trackpad_click")]:
     #if alvr.input_buttons[alvr.InputId("trigger")] and alvr.input_trackpad[0] - alvr.input_trackpad[1] > 0.0:
     #  offset = [0.0, 0.0, 0.0]
     #else:
       outvec = rotatevec(alvr.input_controller_orientation, [0, 0, -1, 0])
-      speed = flight_speed * sign(alvr.input_trackpad[1])
-      if keyboard.getKeyDown(speed_toggle_key):
+      speed  = flight_speed * sign(alvr.input_trackpad[1])
+      if keyboard.getKeyDown(speed_toggle_key) or (gearvr and vrcontroller[0].click):
         speed = speed * speed_multiplier
       for i in range(3):
-      	offset[i] += speed * outvec[i]
+        offset[i] += speed * outvec[i]
 
   alvr.buttons[controller][alvr.Id("trigger")] = trigger_on
 elif mode == 0:
   # passthrough mode
-  offset = [0.0, 0.0, 0.0]
   alvr.buttons[controller][alvr.Id("trackpad_click")] = alvr.buttons[controller][alvr.Id("trackpad_click")] or alvr.input_buttons[alvr.InputId("trackpad_click")]
   alvr.buttons[controller][alvr.Id("trackpad_touch")] = alvr.buttons[controller][alvr.Id("trackpad_touch")] or alvr.input_buttons[alvr.InputId("trackpad_touch")]
   alvr.buttons[controller][alvr.Id("trigger")] = trigger_on
@@ -194,16 +241,23 @@ elif mode == 0:
 # You need to set trigger value correctly to get trigger click work
 alvr.trigger[controller] = 1.0 if alvr.buttons[controller][alvr.Id("trigger")] else 0.0
 
+# Use Gear VR controller vol. up / down buttons to displace hand position as well, even outside of fly mode.
+if gearvr and (vrcontroller[0].volup or vrcontroller[0].voldown):
+  outvec = rotatevec(alvr.input_controller_orientation, [0, 0, -1, 0])
+  speed  = -flight_speed if vrcontroller[0].voldown else flight_speed
+  for i in range(3):
+    offset2[i] += speed * outvec[i]
+
+
 alvr.override_head_position          = True
 alvr.override_controller_position    = True
 alvr.override_controller_orientation = True
 for i in range(3):
-  if keyboard.getKeyDown(mode_toggle_key):
-    alvr.head_position[i] = alvr.input_head_position[i] + offset[i]
-  #alvr.controller_position[controller][i] = alvr.input_controller_position[i] + offset[i]
+  if keyboard.getPressed(mode_toggle_key) or (gearvr and gearvr_trigger):
+    alvr.head_position[i] = alvr.input_head_position[i] + offset[i] # + offset2[i] 
+  #alvr.controller_position[controller][i] = alvr.input_controller_position[i] + offset[i] + offset2[i]
   alvr.controller_orientation[controller][i] = alvr.input_controller_orientation[i]
 
-# For flick of the wrist to work, we must override the default settings for controller movement.
 if False: #trigger_on:
   # We need to change Y and Z axes
   if False:
@@ -221,12 +275,14 @@ if False: #trigger_on:
     alvr.controller_position[controller][2] = controller_pos[2] + offset[2] + (r+hhw -z1) + z2 
 else:
   for i in range(3):
-    alvr.controller_position[controller][i] = controller_pos[i] + offset[i]
+    alvr.controller_position[controller][i] = controller_pos[i] + offset[i] + offset2[i]
     controller_pos[i] = alvr.input_controller_position[i]
 
 # Button remapping:
-# Map "back" button on input to "application_menu" 
-alvr.buttons[controller][alvr.Id("application_menu")] = alvr.input_buttons[alvr.InputId("back")]
+alvr.buttons[controller][alvr.Id(BACK_BUTTON_BINDING)] = alvr.input_buttons[alvr.InputId("back")]
+
+if gearvr:
+  gearvr_last_trigger = gearvr_trigger
 
 if not True:
   # watch variables on FreePIE debugger
