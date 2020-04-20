@@ -76,7 +76,9 @@ I wrote Ric's_Half-Life_Alyx_FreePIE_ALVR_script.py to allow the required contro
   * If you are in "0: default" mode and HOLD [SPACE], you move not only your hand but your head position as well
   * Hold [ALT] for faster flying speed
 
-You can optionally use a Gear VR controller instead of the keyboard (but be aware that it might not always properly register button clicks). Your PC Bluetooth adapter must support BLE (Bluetooth Low Energy) devices (i.e., must support at least Bluetooth 4.0, but be aware that not all Bluetooth 4.0 dongles support BLE). Click a controller button to wake it up before starting the FreePIE script. Look in the FreePIE console to see if your Gear VR controler is connected. If it disconnects, restart the script. These are the functions currently provided by each Gear VR button:
+You can optionally use a Gear VR controller instead of the keyboard (but be aware that it might not always properly register button clicks). Your PC Bluetooth adapter must support BLE (Bluetooth Low Energy) devices (i.e., must support at least Bluetooth 4.0, but be aware that not all Bluetooth 4.0 dongles support BLE). Click a controller button to wake it up before starting the FreePIE script. Look in the FreePIE console to see if your Gear VR controler is connected. If it disconnects, restart the script. To enable the Gear VR controller in FreePIE, download and install the [FreePIEVRController DLL plugin](https://github.com/polygraphene/FreePIEVRController/releases) in the FreePIE plugins folder, and don't forget to unblock it (right-click the file, Properties, Unblock).
+
+These are the functions currently provided by each Gear VR button:
 * [Trigger] toggles between modes; hold to move hand & head positions when flying
 * [Touchpad click] for faster flying speed
 * [Back] to reset head & hand positions
