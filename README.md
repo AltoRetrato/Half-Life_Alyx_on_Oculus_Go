@@ -8,7 +8,7 @@ This is a work in progress! Even though I can play the game with Oculus Go, I'm 
 
 * Be sure your PC can handle Half-Life: Alyx,  you have an [ALVR supported GPU](https://github.com/polygraphene/ALVR/wiki/Supported-GPU) and good 5 GHz Wi-Fi
 * Install [ALVR Client on your Oculus Go](https://alvr-dist.appspot.com/) and [ALVR server (portable) on your PC](https://github.com/polygraphene/ALVR/releases/tag/v2.3.1)
-* Replace original (and buggy) `ALVR\driver\bin\win64\driver_alvr_server.dll` with this [driver_alvr_server.dll](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/raw/master/driver_alvr_server.dll) (after downloading it, right-click the DLL, Properties, Unblock)
+* Replace original (and buggy) `ALVR\driver\bin\win64\driver_alvr_server.dll` with this [driver_alvr_server.dll](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/raw/master/driver_alvr_server.dll) (after downloading it, right-click the DLL, select Properties, check Unblock)
 * Install [FreePIE](https://andersmalmgren.github.io/FreePIE/)
 * Use [Ric's_Half-Life_Alyx_FreePIE_ALVR_script.py](https://raw.githubusercontent.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/master/Ric's_Half-Life_Alyx_FreePIE_ALVR_script.py)
 * Optionally, edit and use [ALVR_init.cmd batch file](https://raw.githubusercontent.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/master/ALVR_init.cmd) to launch at once everything you need to play.
@@ -18,7 +18,7 @@ This is a work in progress! Even though I can play the game with Oculus Go, I'm 
 
 You can play [Half-Life: Alyx](https://www.half-life.com/en/alyx) with any [Steam-VR compatible system](https://www.half-life.com/en/alyx/vr). While the Oculus Go is not officially supported, it can be used to play many SteamVR games with the right hardware, software and configuration.
 
-So far I've played the first seven chapters of the game on my Oculus Go connected to my PC via Wi-Fi. Of course, the experience is not as fun or intuitive as with a 6DoF headset (Oculus Go has only 3DoF and doesn't have enough buttons), but the game is playable and I'm enjoying it. I'd rather buy an Oculus Quest to play the game with, but since I can't buy it now for a reasonable price where I live, the Oculus Go will do.
+So far I've played the first nine chapters of the game on my Oculus Go connected to my PC via Wi-Fi. Of course, the experience is not as fun or intuitive as with a 6DoF headset (Oculus Go has only 3DoF and doesn't have enough buttons), but the game is playable and I'm enjoying it. I'd rather buy an Oculus Quest to play the game with, but since I can't buy it now for a reasonable price where I live, the Oculus Go will do.
 
 ## How?
 
@@ -47,8 +47,9 @@ To play the game, you can manually follow these instructions (which I recommend 
 * Load and run Ric's_Half-Life_Alyx_FreePIE_ALVR_script.py in FreePIE
 * Start ALVR on your PC
 * From ALVR, click "Start server"
-* Start ALVR on your Oculus Go and connect it to the PC
-  * After you connect both, check on ALVR to automatically connect next time
+* Connect the Oculus Go to the same Wi-Fi /router used by your PC
+* Start ALVR on your Oculus Go, then connect it using the ALVR interface on your PC
+  * After they are connect, check on ALVR to automatically connect next time
 * Start the game in SteamVR
 
 To automate most of the above, download and edit [ALVR_init.cmd](https://raw.githubusercontent.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/master/ALVR_init.cmd) (setting the correct path for your files and optionally audio devices), then:
@@ -76,12 +77,20 @@ I wrote Ric's_Half-Life_Alyx_FreePIE_ALVR_script.py to allow the required contro
   * If you are in "0: default" mode and HOLD [SPACE], you move not only your hand but your head position as well
   * Hold [ALT] for faster flying speed
 
-You can optionally use a Gear VR controller instead of the keyboard (but be aware that it might not always properly register button clicks). Your PC Bluetooth adapter must support BLE (Bluetooth Low Energy) devices (i.e., must support at least Bluetooth 4.0, but be aware that not all Bluetooth 4.0 dongles support BLE). Click a controller button to wake it up before starting the FreePIE script. Look in the FreePIE console to see if your Gear VR controler is connected. If it disconnects, restart the script. To enable the Gear VR controller in FreePIE, download and install the [FreePIEVRController DLL plugin](https://github.com/polygraphene/FreePIEVRController/releases) in the FreePIE plugins folder, and don't forget to unblock it (right-click the file, Properties, Unblock).
+## Gear VR controller
+
+You can optionally use a Gear VR controller instead of the keyboard (but be aware that it might not always properly register button clicks, specially when you are between the controller and the PC Bluetooth adapter). Your PC Bluetooth adapter must support BLE (Bluetooth Low Energy) devices (i.e., must support at least Bluetooth 4.0, but not all Bluetooth 4.0 dongles support BLE). Click a controller button to wake it up before starting the FreePIE script. Look in the FreePIE console to see if your Gear VR controler is connected. If it disconnects, restart the script. To enable the Gear VR controller in FreePIE, download and install the [FreePIEVRController DLL plugin](https://github.com/polygraphene/FreePIEVRController/releases) in the FreePIE plugins folder, and don't forget to unblock it (right-click the file, select Properties, check Unblock).
 
 These are the functions currently provided by each Gear VR button:
 * [Trigger] toggles between modes; hold to move hand & head positions when flying
 * [Touchpad click] for faster flying speed
 * [Back] to reset head & hand positions
 * [Vol.Up] and [Vol.Down] to move hand position, in either mode
+
+## Issues
+
+The only binding I could not make work so far is double-clicking. This is used for "Toggle Burst Fire", but since it is not required to complete the game, I didn't spend time researching the cause.
+
+## Final words
 
 I guess that is all for now. Feel free to leave comments or suggestions in the Issues section.
