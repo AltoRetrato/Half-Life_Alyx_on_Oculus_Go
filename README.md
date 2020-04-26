@@ -1,5 +1,7 @@
 # Playing Half-Life: Alyx on the Oculus Go
 
+![This is how I played Half-Life: Alyx on the Oculus Go](Fresh_from_the_oven.jpg)
+
 ## TL;DR
 
 * Be sure your PC can handle Half-Life: Alyx, you have an [ALVR supported GPU](https://github.com/polygraphene/ALVR/wiki/Supported-GPU) and good 5 GHz Wi-Fi
