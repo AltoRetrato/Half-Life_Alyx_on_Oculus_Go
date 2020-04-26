@@ -88,7 +88,13 @@ These are the functions currently provided by each Gear VR button:
 
 ## Issues
 
-The only binding I could not make work so far is double-clicking. This is used for "Toggle Burst Fire", but since it is not required to complete the game, I didn't spend time researching the cause.
+The only binding I could not make work so far is double-clicking. This is used for "Toggle Burst Fire", but since it is not required to complete the game, I didn't spend time searching for the cause or for a solution.
+
+Throwing objects is currently possible, even though a bit of a challenge - and you can't throw anything far. Again, since you can work around it, I didn't try to solve this.
+
+## Tips
+
+* My Oculus Go battery lasts for a bit less than 90 min. during an ALVR session, but takes a bit more than 120 min. to fully charge. For me that's respectively too short and too long, so I attached a power bank at the back of the head strap (which also helps remove the weight from my nose and face, giving a bit more comfort) to be able to play continually for hours in a single session (at the end, the Go battery is always at 100%). *Using the Go while charging it is not recommended by Oculus*, so if you do this, you assume all responsibility for any unforeseen consequences.
 
 ## Final words
 
