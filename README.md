@@ -16,7 +16,7 @@
 
 You can play [Half-Life: Alyx](https://www.half-life.com/en/alyx) with any [Steam-VR compatible system](https://www.half-life.com/en/alyx/vr). While the Oculus Go is not officially supported, it can be used to play many SteamVR games with the right hardware, software and configuration.
 
-I've completed the game, playing on my Oculus Go connected to my PC via Wi-Fi. Of course, the experience is certainly not as fun or intuitive as with a 6DoF headset (Oculus Go has only 3DoF and doesn't have enough buttons), but the game is fully playable and I enjoyed it immensely. I'd rather buy an Oculus Quest to play the game with, but since I can't buy it now for a reasonable price where I live, the Oculus Go will do.
+I've completed the game, playing on my Oculus Go connected to my PC via Wi-Fi, in Story mode (the easiest level of difficulty). Of course, the experience is certainly not as fun or intuitive as with a 6DoF headset (Oculus Go has only 3DoF and doesn't have enough buttons), but the game is fully playable and I enjoyed it immensely. I'd rather buy an Oculus Quest to play the game with, but since I can't buy it now for a reasonable price where I live, the Oculus Go will do.
 
 ## How?
 
