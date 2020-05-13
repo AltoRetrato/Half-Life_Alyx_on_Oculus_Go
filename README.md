@@ -1,6 +1,6 @@
 # Playing Half-Life: Alyx on the Oculus Go
 
-![This is how I played Half-Life: Alyx on the Oculus Go](Fresh_from_the_oven.jpg)
+![This is how I played Half-Life: Alyx on the Oculus Go](https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go/blob/master/img/Fresh_from_the_oven.jpg?raw=true)
 
 ## TL;DR
 
