@@ -8,6 +8,7 @@
 # Optionally, you can use a Gear VR controller instead of the keyboard.
 # More details at https://github.com/AltoRetrato/Half-Life_Alyx_on_Oculus_Go
 #
+# 2020.05.23 - Fixed bug that didn't allow head position to change in fly mode.
 # 2020.04.18 - Added support for the Gear VR (and maybe Daydream?) controller with FreePIEVRController;
 #              Download DLL plugin at https://github.com/polygraphene/FreePIEVRController/releases
 # 2020.04.02 - 2nd release, flick of the wrist solved with new driver; 
@@ -253,7 +254,7 @@ alvr.override_head_position          = True
 alvr.override_controller_position    = True
 alvr.override_controller_orientation = True
 for i in range(3):
-  if keyboard.getPressed(mode_toggle_key) or (gearvr and gearvr_trigger):
+  if keyboard.getKeyDown(mode_toggle_key) or (gearvr and gearvr_trigger):
     alvr.head_position[i] = alvr.input_head_position[i] + offset[i] # + offset2[i] 
   #alvr.controller_position[controller][i] = alvr.input_controller_position[i] + offset[i] + offset2[i]
   alvr.controller_orientation[controller][i] = alvr.input_controller_orientation[i]
